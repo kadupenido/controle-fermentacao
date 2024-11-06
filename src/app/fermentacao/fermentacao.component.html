@@ -1,0 +1,84 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="box">
+        <div class="data-form">
+          <form class="form" [formGroup]="configForm" (ngSubmit)="saveConfig()">
+            <div class="row mb-3">
+              <!-- Cada coluna vai ocupar toda a largura da linha em telas pequenas (col-12) e se adaptar em telas médias e grandes -->
+              <div class="col-12 col-sm-6 col-md-4 mb-3">
+                <label for="targetTemp" class="form-label">Target Temp</label>
+                <input type="number" class="form-control" id="targetTemp" formControlName="targetTemp">
+              </div>
+              <div class="col-12 col-sm-6 col-md-4 mb-3">
+                <label for="relayDelay" class="form-label">Relay Delay</label>
+                <input type="number" class="form-control" id="relayDelay" formControlName="relayDelay">
+              </div>
+              <div class="col-12 col-sm-6 col-md-4 mb-3">
+                <label for="tempHysteresis" class="form-label">Hysteresis</label>
+                <input type="number" class="form-control" id="tempHysteresis" formControlName="tempHysteresis">
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-12 col-md-3">
+                <!-- Botão centralizado e responsivo -->
+                <button type="submit" class="btn btn-primary w-100">Enviar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="row mb-3">
+          <div class="col-12 col-md-4 d-flex align-items-center justify-content-start" style="padding-left: 30px;">
+            <label class="form-check-label me-2" for="geladeiraSwitch">Geladeira:</label>
+            <div class="switch-indicator" [ngClass]="{ 'on': relayOn, 'off': !relayOn }">
+              {{ relayOn ? 'Ligada' : 'Desligada' }}
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-12 col-md-4 d-flex align-items-center justify-content-start"
+            style="padding-left: 30px;">
+            <label class="form-check-label me-2">Temperatua Atual:</label>
+            <label class="form-check-label me-2">{{currentTemp}}ºC</label>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-12 col-md-4 d-flex align-items-center justify-content-start"
+            style="padding-left: 30px; padding-bottom: 30px;">
+            <label class="form-check-label me-2">Última Leitura:</label>
+            <label class="form-check-label me-2">{{lastRead}}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="box">
+        <!-- Gráfico responsivo -->
+        <div class="chart-container">
+          <ngx-charts-area-chart [scheme]="'flame'" [results]="data" [xAxis]="showXAxis" [yAxis]="showYAxis"
+            [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [autoScale]="autoScale"
+            [legendPosition]="legendPosition" [showGridLines]="showGrid">
+          </ngx-charts-area-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="box">
+        <!-- Gráfico responsivo -->
+        <div class="chart-container" style="margin-top: 20px;">
+          <ngx-charts-area-chart [scheme]="'flame'" [results]="dataRelay" [xAxis]="showXAxis" [yAxis]="showYAxis"
+            [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [autoScale]="autoScale"
+            [legendPosition]="legendPosition" [showGridLines]="showGrid">
+          </ngx-charts-area-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
